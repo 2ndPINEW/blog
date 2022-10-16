@@ -23,5 +23,8 @@
     "@types/imagemin-webp": "^7.0.0",
     "@types/marked": "^4.0.7",
     "@types/node": "^18.11.0"
+  },
+  "engines" : { 
+    "node" : ">=12.18.0" 
   }
 }
