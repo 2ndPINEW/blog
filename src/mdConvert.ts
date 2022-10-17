@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { marked } from 'marked'
 
-import { blogsDirPath, distDirPath, getBlogDirFilePath, getDistDirFilePath, getDistPagingJsonPath, getDistTagsJsonPath } from './path.js'
+import { blogsDirPath, distDirPath, getBlogDirFilePath, getDistDirFilePath, getDistPagingJsonPath, getDistTagsJsonPath, getHtmlFilePath } from './path.js'
 
 
 interface MetaData {
@@ -10,6 +10,7 @@ interface MetaData {
   icon: string
   date: string
   tags: string[]
+  path: string
 }
 
 /**
@@ -39,7 +40,9 @@ export function mdToHtmlAndJson (): void {
       process.exit(1)
     }
 
-    const metaData = JSON.parse(data[0])
+    const metaData: MetaData = JSON.parse(data[0])
+    metaData.path = getHtmlFilePath(fileName)
+    
     metaDatas.push(metaData)
 
     const markdownData = data[1]

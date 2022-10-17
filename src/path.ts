@@ -10,6 +10,10 @@ export function getDistDirFilePath (filePath: string): string {
   return `${distDirPath}${filePath}.html`
 }
 
+export function getHtmlFilePath (filePath: string): string {
+  return `/${filePath}.html`
+}
+
 export function getDistPagingJsonPath (index: number): string {
   return `${distDirPath}page-${index}.json`
 }
