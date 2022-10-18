@@ -41,7 +41,7 @@ export function mdToHtmlAndJson (): void {
     }
 
     const metaData: MetaData = JSON.parse(data[0])
-    metaData.path = getHtmlFilePath(fileName)
+    metaData.path = fileName
     
     metaDatas.push(metaData)
 
