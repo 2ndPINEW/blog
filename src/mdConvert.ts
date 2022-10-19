@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { marked } from 'marked'
 
-import { blogsDirPath, distDirPath, getBlogDirFilePath, getDistDirFilePath, getDistPagingJsonPath, getDistTagsJsonPath, getHtmlFilePath } from './path.js'
+import { blogsDirPath, distDirPath, getBlogDirFilePath, getDistDirFilePath, getDistPagingJsonPath, getDistTagsJsonPath } from './path.js'
 
 
 interface MetaData {

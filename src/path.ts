@@ -7,11 +7,7 @@ export function getBlogDirFilePath (filePath: string): string {
 }
 
 export function getDistDirFilePath (filePath: string): string {
-  return `${distDirPath}${filePath}.html`
-}
-
-export function getHtmlFilePath (filePath: string): string {
-  return `/${filePath}.html`
+  return `${distDirPath}${filePath}`
 }
 
 export function getDistPagingJsonPath (index: number): string {
