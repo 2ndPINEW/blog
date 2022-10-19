@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "commander": "^9.4.1",
+    "image-size": "^1.0.2",
     "imagemin": "^8.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagemin-webp": "^7.0.0",

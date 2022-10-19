@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import { getBlogDirFilePath } from './path';
+import { getBlogDirFilePath } from './path.js';
 
 const template  = `{
   "title": "MM/DDの記事",

@@ -1,7 +1,8 @@
 import * as fs from 'fs'
 import { marked } from 'marked'
+import { imageSize } from 'image-size'
 
-import { blogsDirPath, distDirPath, getBlogDirFilePath, getDistDirFilePath, getDistPagingJsonPath, getDistTagsJsonPath } from './path.js'
+import { blogsDirPath, distDirPath, getBlogDirFilePath, getDistDirFilePath, getDistPagingJsonPath, getDistTagsJsonPath, resourceUrl } from './path.js'
 
 
 interface MetaData {
@@ -17,6 +18,7 @@ interface MetaData {
  * マークダウンの記事をHTMLに変換してインデックス用のJSONを作る
  */
 export function mdToHtmlAndJson (): void {
+  markedImageTagRenderer()
   const fileNames = fs.readdirSync(blogsDirPath)
     .filter(filePath => filePath.endsWith('.md'))
     .map(fileName => fileName.replace('.md', ''))
@@ -76,4 +78,32 @@ export function mdToHtmlAndJson (): void {
   splitArray(metaDatas, 50).forEach((datas: MetaData[], index: number) => {
     fs.writeFileSync(getDistPagingJsonPath(index + 1), JSON.stringify({ contents: datas }))
   })
+}
+
+function markedImageTagRenderer (): void {
+  const renderer = {
+    image(href: string | null, title: string | null, text: string): string {
+      if (!href) return ''
+
+      const size = imageSize(`.${href}`)
+      const width = size.width
+      const height = size.height
+
+
+      const pngUrl = `${resourceUrl}${href}`
+      const webpUrl = `${resourceUrl}${href}`.replace('.png', '.webp')
+  
+      // srcset使いたいなー
+      // <source width="720" height="404" type="image/webp" srcset="./img/header/big_banner-360.webp 360w, ./img/header/big_banner-480.webp 480w, ./img/header/big_banner-720.webp 720w, ./img/header/big_banner-960.webp 960w, ./img/header/big_banner-1280.webp 1280w, ./img/header/big_banner-1600.webp 1600w, ./img/header/big_banner-1920.webp 1920w">
+      // <source width="720" height="404" type="image/png" srcset="./img/header/big_banner-360.png 360w, ./img/header/big_banner-480.png 480w, ./img/header/big_banner-720.png 720w, ./img/header/big_banner-960.png 960w, ./img/header/big_banner-1280.png 1280w, ./img/header/big_banner-1600.png 1600w, ./img/header/big_banner-1920.png 1920w">
+      return `
+        <picture>
+          <source width="${width}" height="${height}" type="image/webp" src="${webpUrl}">
+          <source width="${width}" height="${height}" type="image/png" src="${pngUrl}">
+          <img src="${pngUrl}" alt="${title ?? text}">
+        </picture>`
+    }
+  }
+
+  marked.use({ renderer })
 }
