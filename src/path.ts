@@ -7,7 +7,7 @@ export function getBlogDirFilePath (filePath: string): string {
 }
 
 export function getDistDirFilePath (filePath: string): string {
-  return `${distDirPath}${filePath}`
+  return `${distDirPath}${filePath}.json`
 }
 
 export function getDistPagingJsonPath (index: number): string {

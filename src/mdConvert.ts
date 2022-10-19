@@ -48,7 +48,12 @@ export function mdToHtmlAndJson (): void {
     const markdownData = data[1]
     const html = marked(markdownData)
 
-    fs.writeFileSync(distDirFilePath, html)
+    const pageData = {
+      metaData: metaData,
+      html: html
+    }
+
+    fs.writeFileSync(distDirFilePath, JSON.stringify(pageData))
   })
 
   metaDatas.forEach(metaData => {
