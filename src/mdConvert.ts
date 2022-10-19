@@ -98,8 +98,8 @@ function markedImageTagRenderer (): void {
       // <source width="720" height="404" type="image/png" srcset="./img/header/big_banner-360.png 360w, ./img/header/big_banner-480.png 480w, ./img/header/big_banner-720.png 720w, ./img/header/big_banner-960.png 960w, ./img/header/big_banner-1280.png 1280w, ./img/header/big_banner-1600.png 1600w, ./img/header/big_banner-1920.png 1920w">
       return `
         <picture>
-          <source width="${width}" height="${height}" type="image/webp" src="${webpUrl}">
-          <source width="${width}" height="${height}" type="image/png" src="${pngUrl}">
+          <source width="${width}" height="${height}" type="image/webp" srcset="${webpUrl}">
+          <source width="${width}" height="${height}" type="image/png" srcset="${pngUrl}">
           <img src="${pngUrl}" alt="${title ?? text}">
         </picture>`
     }
