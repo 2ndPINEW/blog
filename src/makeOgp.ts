@@ -4,9 +4,9 @@ import font2base64 from 'node-font2base64'
 
 import { blogsDirPath, getBlogDirFilePath } from './path.js';
 
-const robotoRegular = font2base64.encodeToDataUrlSync('./fonts/Roboto-Regular.ttf')
-const robotoMedium = font2base64.encodeToDataUrlSync('./fonts/Roboto-Medium.ttf')
-const robotoBold = font2base64.encodeToDataUrlSync('./fonts/Roboto-Bold.ttf')
+const regular = font2base64.encodeToDataUrlSync('./fonts/NotoSerifJP-Bold.otf')
+const medium = font2base64.encodeToDataUrlSync('./fonts/NotoSerifJP-Medium.otf')
+const bold = font2base64.encodeToDataUrlSync('./fonts/NotoSerifJP-Bold.otf')
 
 const template  = `
 <html>
@@ -14,14 +14,13 @@ const template  = `
   <style>
     @font-face {
       font-family: 'roboto';
-      src: url(${robotoRegular}) format('truetype');
-      src: url(${robotoMedium}) format('truetype');
-      src: url(${robotoBold}) format('truetype');
+      src: url(${regular}) format('opentype');
+      src: url(${medium}) format('opentype');
+      src: url(${bold}) format('opentype');
     }
     body {
       width: 1200px;
       height: 630px;
-      font-family: 'roboto';
     }
 
     .title {
@@ -30,6 +29,7 @@ const template  = `
       padding: 32px;
       word-break: break-all;
       font-weight: bold;
+      font-family: 'roboto';
     }
 
     .footer {
@@ -56,6 +56,7 @@ const template  = `
       color: #707070;
       font-size: 48px;
       font-weight: bold;
+      font-family: 'roboto';
     }
   </style>
 </head>
@@ -79,7 +80,7 @@ export async function makeOgp (): Promise<void> {
 
   const tags: string[] = []
 
-  for await (const fileName of fileNames) {
+  const data = fileNames.map(fileName => {
     const blogDirFilePath = getBlogDirFilePath(fileName)
     const file = fs.readFileSync(blogDirFilePath, { encoding: "utf8" })
 
@@ -97,35 +98,33 @@ export async function makeOgp (): Promise<void> {
       }
     })
 
-    await nodeHtmlToImage({
+    return {
       output: `./dist/${fileName}-og.png`,
-      html: template,
-      content: {
-        title: metaData.title,
-        logo: logoDataURI
-      }
-    }) 
-  }
+      title: metaData.title,
+      logo: logoDataURI
+    }
+  })
 
-  for await (const tag of tags) {
-    await nodeHtmlToImage({
-      output: `./dist/${tag}-og.png`,
-      html: template,
-      content: {
+  tags.forEach(tag => {
+    data.push(
+      {
+        output: `./dist/${tag}-og.png`,
         title: `${tag} の記事一覧`,
         logo: logoDataURI
       }
-    }) 
-  }
+    )
+  })
+
+  data.push({
+    output: `./dist/index-og.png`,
+    title: '日報とか学んだこととかメモ',
+    logo: logoDataURI
+  })
 
   await nodeHtmlToImage({
-    output: `./dist/index-og.png`,
     html: template,
-    content: {
-      title: '日報とか学んだこととかメモ',
-      logo: logoDataURI
-    }
-  }) 
+    content: data
+  })
 }
 
 interface MetaData {
