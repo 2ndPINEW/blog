@@ -1,5 +1,5 @@
 https://blog-bga.pages.dev/*
-  Access-Control-Allow-Origin: https://blog-front-5z7.pages.dev/
+  Access-Control-Allow-Origin: https://blog-front-5z7.pages.dev
   Access-Control-Allow-Methods: POST, GET, OPTIONS
   Access-Control-Allow-Headers: *
   X-Robots-Tag: noindex
