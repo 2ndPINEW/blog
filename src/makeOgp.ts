@@ -1,16 +1,27 @@
 import * as fs from 'fs'
-import nodeHtmlToImage from 'node-html-to-image';
+import nodeHtmlToImage from 'node-html-to-image'
+import font2base64 from 'node-font2base64'
 
 import { blogsDirPath, getBlogDirFilePath } from './path.js';
 
+const robotoRegular = font2base64.encodeToDataUrlSync('./fonts/Roboto-Regular.ttf')
+const robotoMedium = font2base64.encodeToDataUrlSync('./fonts/Roboto-Medium.ttf')
+const robotoBold = font2base64.encodeToDataUrlSync('./fonts/Roboto-Bold.ttf')
 
 const template  = `
 <html>
 <head>
   <style>
+    @font-face {
+      font-family: 'roboto';
+      src: url(${robotoRegular}) format('truetype');
+      src: url(${robotoMedium}) format('truetype');
+      src: url(${robotoBold}) format('truetype');
+    }
     body {
       width: 1200px;
       height: 630px;
+      font-family: 'roboto';
     }
 
     .title {
@@ -18,6 +29,7 @@ const template  = `
       font-size: 64px;
       padding: 32px;
       word-break: break-all;
+      font-weight: bold;
     }
 
     .footer {
@@ -43,6 +55,7 @@ const template  = `
       margin-left: 16px;
       color: #707070;
       font-size: 48px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -109,7 +122,7 @@ export async function makeOgp (): Promise<void> {
     output: `./dist/index-og.png`,
     html: template,
     content: {
-      title: 'blog',
+      title: '日報とか学んだこととかメモ',
       logo: logoDataURI
     }
   }) 
