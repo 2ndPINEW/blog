@@ -3,6 +3,8 @@ export const blogsDirPath = './blogs/'
 export const distDirPath = './dist/'
 export const resourceUrl = 'https://blog-bga.pages.dev'
 
+export const sitemapFilePath = `${distDirPath}sitemap.xml`
+
 export function getBlogDirFilePath (filePath: string): string {
   return `${blogsDirPath}${filePath}.md`
 }
