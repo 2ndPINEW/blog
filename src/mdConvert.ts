@@ -100,7 +100,7 @@ function markedImageTagRenderer (): void {
         <picture>
           <source width="${width}" height="${height}" type="image/webp" srcset="${webpUrl}">
           <source width="${width}" height="${height}" type="image/png" srcset="${pngUrl}">
-          <img src="${pngUrl}" alt="${title ?? text}">
+          <img src="${pngUrl}" alt="${title ?? text}" loading="lazy">
         </picture>`
     }
   }
