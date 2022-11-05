@@ -73,7 +73,7 @@ export function generateSitemap (): void {
   const now = new Date()
   data.push({
     loc: `${origin}`,
-    lastmod: `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`,
+    lastmod: `${now.getFullYear()}-${('00' + (now.getMonth()+1)).slice(-2)}-${('00' + now.getDate()).slice(-2)}`,
     changefreq: 'weekly'
   })
 
