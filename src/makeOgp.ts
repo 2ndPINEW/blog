@@ -21,29 +21,41 @@ const template  = `
     body {
       width: 1200px;
       height: 630px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .card {
+      width: calc(1200px - 64px);
+      height: calc(630px - 64px);
+      padding: 32px;
+
+      background-color: #E3E4DB;
+      border-radius: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
     }
 
     .title {
-      color: #707070;
+      color: #4b4b4b;
       font-size: 64px;
-      padding: 32px;
       word-break: break-all;
       font-weight: bold;
       font-family: 'roboto';
     }
 
     .footer {
-      background-color: #E3E4DB;
-      position: fixed;
-      bottom: 0;
-      left: 0;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding: 32px 48px;
-      border-top-left-radius: 32px;
-      border-top-right-radius: 32px;
-      width: 1104px;
     }
 
     .footer-logo {
@@ -61,10 +73,12 @@ const template  = `
   </style>
 </head>
 <body>
-  <div class="title">{{title}}</div>
-  <div class="footer">
-    <img src="{{logo}}" class="footer-logo"/>
-    <div class="footer-title">pi</div>
+  <div class="card">
+    <div class="title">{{title}}</div>
+    <div class="footer">
+      <img src="{{logo}}" class="footer-logo"/>
+      <div class="footer-title">pi</div>
+    </div>
   </div>
 </body>
 </html>`
