@@ -53,6 +53,10 @@ export function generateSitemap (): void {
       }
     })
 
+    if (metaData.tags.includes('Draft')) {
+      return undefined
+    }
+
     return {
       loc: `${origin}blog/${fileName}`,
       lastmod: metaData.date.replaceAll('/', '-'),
@@ -78,6 +82,7 @@ export function generateSitemap (): void {
   })
 
   const urlset = data.map(v => {
+    if (!v) return ''
     return urlTemplate
       .replace('{{loc}}', v.loc)
       .replace('{{lastmod}}', v.lastmod)
