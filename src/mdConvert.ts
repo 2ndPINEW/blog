@@ -45,7 +45,9 @@ export function mdToHtmlAndJson (): void {
     const metaData: MetaData = JSON.parse(data[0])
     metaData.path = fileName
     
-    metaDatas.push(metaData)
+    if (!metaData.tags.includes('Draft')) {
+      metaDatas.push(metaData)
+    }
 
     const markdownData = data[1]
     const html = marked(markdownData)
