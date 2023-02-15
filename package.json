@@ -7,7 +7,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "convert": "node --loader ts-node/esm ./src/main.ts"
+    "convert": "node --loader ts-node/esm ./src/main.ts",
+    "convert:image": "node --loader ts-node/esm ./src/imageConvert.ts"
   },
   "dependencies": {
     "commander": "^9.4.1",
